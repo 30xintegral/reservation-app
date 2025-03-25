@@ -1,19 +1,14 @@
-package com.demo.reservationapp.entity;
+package com.demo.reservationapp.dtos.response;
 
 import com.demo.reservationapp.enums.Category;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "reservations")
 @Getter
 @Setter
-public class Reservations {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ReservationResponse {
     private Long id;
 
     private boolean active;
@@ -24,6 +19,12 @@ public class Reservations {
 
     private Category category;
 
-    @ManyToOne
-    private Customer customer;
+    private Long customerId;
+
+    private String customerEmail;
+
+    private String customerFirstname;
+
+    private String customerLastname;
+
 }

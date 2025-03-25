@@ -3,3 +3,7 @@ spring:
     name: reservation-app
   profiles:
     active: db
+
+jwtSecret : MYEXTRASECRETNYKEYFROMNASAWHEREIGOTIT101997645311h1g24HGJHG124JHG12J4G1J2HG4JH12G4JAKHGDAJGSFKJAGSFKJAGSFKJH12
+jwtExpirationInMs : 300000
+jwtRefreshExpirationInMs : 900000
