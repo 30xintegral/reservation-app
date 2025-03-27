@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,8 +29,8 @@ public class Customer {
     private User user;
 
     @OneToMany(mappedBy = "customer")
-    private Set<Reservations> reservations = new HashSet<>();
-    public void setReservations(Reservations reservation) {
+    private Set<Reservation> reservations = new HashSet<>();
+    public void setReservations(Reservation reservation) {
         this.reservations.add(reservation);
     }
 
