@@ -18,7 +18,7 @@ public class UserPrincipal implements UserDetails {
     private String password;
     private Boolean locked;
     private Role role;
-    private User User;
+    private User user;
 
     @Override
     public boolean isAccountNonExpired() {

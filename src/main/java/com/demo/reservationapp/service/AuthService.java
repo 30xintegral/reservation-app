@@ -9,7 +9,7 @@ import com.demo.reservationapp.dtos.response.TokenResponse;
 public interface AuthService {
     TokenResponse login(LoginDTO loginDTO);
 
-    void register(RegistrationDTO registrationDTO);
+    void registerCategoryAdmin(RegistrationDTO registrationDTO);
 
     void addDetails(RegistrationDTO registrationDTO);
 

@@ -20,12 +20,16 @@ public class CategoryAdmin {
 
     private String lastname;
 
-    private LocalDateTime registeredAt;
+    private LocalDateTime registeredAt = LocalDateTime.now();
 
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     private Category category;
 
     @OneToOne
     private User user;
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

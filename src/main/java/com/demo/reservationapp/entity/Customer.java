@@ -34,4 +34,7 @@ public class Customer {
         this.reservations.add(reservation);
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
