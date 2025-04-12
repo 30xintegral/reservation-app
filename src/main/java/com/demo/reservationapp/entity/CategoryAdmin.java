@@ -24,6 +24,7 @@ public class CategoryAdmin {
 
     private LocalDateTime updatedAt = LocalDateTime.now();
 
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     @OneToOne

@@ -2,6 +2,8 @@ package com.demo.reservationapp.repository;
 
 import com.demo.reservationapp.entity.Customer;
 import com.demo.reservationapp.entity.Reservation;
+import com.demo.reservationapp.enums.Status;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,9 +21,16 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     Optional<Reservation> findById(Long id);
 
+
     @Modifying
-    @Query(value = "update reservations set active = true where id=:id", nativeQuery = true)
-    String enableReservation(@Param(value = "id") Long id);
+    @Transactional
+    @Query("UPDATE Reservation r SET r.status = :status WHERE r.id = :id")
+    int updateReservationStatus(@Param("id") Long id, @Param("status") Status status);
 
     Page<Reservation> findAllByCustomerId(Long customerId, Pageable pageable);
+
+
+    Optional<Reservation> findReservationsWhereStatusIsPendingByCustomerId(Long customerId);
+
+
 }

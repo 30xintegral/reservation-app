@@ -1,6 +1,7 @@
 package com.demo.reservationapp.entity;
 
 import com.demo.reservationapp.enums.Category;
+import com.demo.reservationapp.enums.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,8 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean active;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     private LocalDateTime createdAt;
 
