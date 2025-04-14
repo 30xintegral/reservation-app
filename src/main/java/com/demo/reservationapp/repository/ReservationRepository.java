@@ -30,7 +30,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     Page<Reservation> findAllByCustomerId(Long customerId, Pageable pageable);
 
 
-    Optional<Reservation> findReservationsWhereStatusIsPendingByCustomerId(Long customerId);
+    @Query("SELECT r FROM Reservation r WHERE r.status = :status AND r.customer.id = :id")
+    List<Reservation> findByStatusAndCustomerId(@Param("id") Long id, @Param("status") Status status);
 
 
 }

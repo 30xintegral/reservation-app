@@ -24,6 +24,7 @@ public class Reservation {
 
     private LocalDateTime scheduledTime;
 
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     @ManyToOne

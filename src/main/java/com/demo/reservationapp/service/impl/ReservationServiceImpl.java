@@ -5,9 +5,11 @@ import com.demo.reservationapp.dtos.response.ReservationResponse;
 import com.demo.reservationapp.entity.Customer;
 import com.demo.reservationapp.entity.Reservation;
 import com.demo.reservationapp.entity.UserPrincipal;
+import com.demo.reservationapp.enums.Status;
 import com.demo.reservationapp.exceptions.NotFoundException;
 import com.demo.reservationapp.exceptions.TerminatedException;
 import com.demo.reservationapp.mapper.ReservationMapper;
+import com.demo.reservationapp.mapper.ReservationMapperImpl;
 import com.demo.reservationapp.repository.CustomerRepository;
 import com.demo.reservationapp.repository.ReservationRepository;
 import com.demo.reservationapp.repository.UserRepository;
@@ -19,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +50,17 @@ public class ReservationServiceImpl implements ReservationService {
             throw new TerminatedException("Cannot create a reservation. User is locked or not found");
         }
         Customer customer = customerRepository.findByUserId(userPrincipal.getUser().getId()).orElseThrow(() -> new NotFoundException("Customer not found"));
-        //here...
+        if (!reservationRepository.findByStatusAndCustomerId(customer.getId(), Status.PENDING).isEmpty() || !reservationRepository.findByStatusAndCustomerId(customer.getId(),Status.DONE).isEmpty()) {
+            throw new TerminatedException("Cannot create a reservation. Reservation is already in progress");
+        }
+
+        Reservation reservation = ReservationMapperImpl.INSTANCE.requestToEntity(reservationRequest);
+        reservation.setCustomer(customer);
+        reservation.setStatus(Status.PENDING);
+        reservation.setCreatedAt(LocalDateTime.now());
+        reservationRepository.save(reservation);
+        //here we need to inform category admins via email or sms
+
     }
 
     @Override

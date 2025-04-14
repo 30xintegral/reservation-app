@@ -73,6 +73,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/register/**").permitAll()
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/auth/refresh").permitAll()
+                        .requestMatchers("/reservation/create").hasAuthority("CUSTOMER")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
