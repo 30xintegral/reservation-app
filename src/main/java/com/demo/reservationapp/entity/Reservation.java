@@ -1,6 +1,7 @@
 package com.demo.reservationapp.entity;
 
 import com.demo.reservationapp.enums.Category;
+import com.demo.reservationapp.enums.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,29 +9,24 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "categoryAdmins")
+@Table(name = "reservations")
 @Getter
 @Setter
-public class CategoryAdmin {
+public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String firstname;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
-    private String lastname;
+    private LocalDateTime createdAt;
 
-    private LocalDateTime registeredAt = LocalDateTime.now();
-
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    private LocalDateTime scheduledTime;
 
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @OneToOne
-    private User user;
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    @ManyToOne
+    private Customer customer;
 }
